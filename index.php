@@ -14,10 +14,22 @@
             $action="add";
         }
     }
+
+    if(isset($_GET['action']) && $_GET['action']=='del'){
+        $id = $_GET['id'];
+        $del_sql="DELETE FROM `user` WHERE `Id`=$id";
+        $res_del = mysqli_query($con,$del_sql);
+        if(!$res_del){
+            die(mysqli_error($con));
+        }else{
+            $action="del";
+        }
+    }
+
     $users_sql = "SELECT * FROM user";
     $all_user = mysqli_query($con,$users_sql);
-    $user=$all_user -> fetch_assoc();
-    var_dump($user);
+    // $user=$all_user -> fetch_assoc();
+    // var_dump($user);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +66,12 @@
                                 <td><?php echo $user['Name'];?></td>
                                 <td><?php echo $user['Email'];?></td>
                                 <td><?php echo $user['Mobile'];?></td>
-                                <td>Action</td>
+                                <td>
+                                    <div class="d-flex p-2 justify-content-evenly mb-2">
+                                    <i onclick="confirm_delete(<?php echo $user['Id'] ; ?>);" class="text-danger" data-feather="trash-2"></i>
+                                    <i class="text-success" data-feather="edit"></i>
+                                    </div>
+                                </td>
                             </tr>
                             <?php
                         }
@@ -75,6 +92,12 @@
             if($action=='add'){?>
                 <script>
                     show_add()
+                </script>
+                <?php
+            }
+            if($action=='del'){?>
+                <script>
+                    show_del()
                 </script>
                 <?php
             }
