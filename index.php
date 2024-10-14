@@ -7,7 +7,7 @@
         $mobile=$_POST['mobile'];
         $password=$_POST['password'];
 
-        if($_POST['save'] == "save"){
+        if($_POST['save'] == "Save"){
             $save_sql = "INSERT INTO `user`(`name`,`email`,`password`,`mobile`) VALUES ('$name','$email','$password','$mobile')";
         }else{
             $id=$_POST['Id'];
