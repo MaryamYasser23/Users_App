@@ -6,12 +6,23 @@
         $email=$_POST['email'];
         $mobile=$_POST['mobile'];
         $password=$_POST['password'];
-        $add_sql = "INSERT INTO `user`(`name`,`email`,`password`,`mobile`) VALUES ('$name','$email','$password','$mobile')";
-        $res_add = mysqli_query($con,$add_sql);
-        if(!$res_add){
+
+        if($_POST['save'] == "save"){
+            $save_sql = "INSERT INTO `user`(`name`,`email`,`password`,`mobile`) VALUES ('$name','$email','$password','$mobile')";
+        }else{
+            $id=$_POST['Id'];
+            $save_sql = "UPDATE `user` SET `Name`='$name',`Email`='$email',`Mobile`='$mobile',`Password`='$password' WHERE `Id`='$id'";
+        }
+        
+        $res_save = mysqli_query($con,$save_sql);
+        if(!$res_save){
             die(mysqli_error($con));
         }else{
-            $action="add";
+            if(isset($_POST['Id'])){
+                $action="edit";
+            }
+            else
+                $action="add";
         }
     }
 
@@ -69,7 +80,7 @@
                                 <td>
                                     <div class="d-flex p-2 justify-content-evenly mb-2">
                                     <i onclick="confirm_delete(<?php echo $user['Id'] ; ?>);" class="text-danger" data-feather="trash-2"></i>
-                                    <i class="text-success" data-feather="edit"></i>
+                                    <i onclick="edit(<?php echo $user['Id'] ; ?>);" class="text-success" data-feather="edit"></i>
                                     </div>
                                 </td>
                             </tr>
@@ -98,6 +109,12 @@
             if($action=='del'){?>
                 <script>
                     show_del()
+                </script>
+                <?php
+            }
+            if($action=='edit'){?>
+                <script>
+                    show_up()
                 </script>
                 <?php
             }
