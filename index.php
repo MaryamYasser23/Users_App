@@ -56,7 +56,7 @@
         <div class="wrapper p-5 m-5">
             <div class="d-flex p-2 justify-content-between mb-2">
                 <h2>All Users</h2>
-                <div><a href="add_user.php"><i data-feather="user-plus"></i></a></div>
+                <div><a href="add_update_user.php"><i data-feather="user-plus"></i></a></div>
             </div>
             <hr>
             <table class="table table-striped">

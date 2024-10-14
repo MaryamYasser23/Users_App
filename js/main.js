@@ -28,7 +28,7 @@ function confirm_delete(Id) {
 }
 
 function edit(Id) {
-    window.location.href="add_user.php?action=edit&&id="+Id;
+    window.location.href="add_update_user.php?action=edit&&id="+Id;
 }
 
 function show_del() {
